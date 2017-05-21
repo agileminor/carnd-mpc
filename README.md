@@ -6,16 +6,16 @@ Self-Driving Car Engineer Nanodegree Program
 ## Model
 
 # State
-*x: current x location
-*y: current y location
-*psi: current angle
-*v: current speed
-*cte: current cross track error
-*epsi: current psi error
+  *x: current x location
+  *y: current y location
+  *psi: current angle
+  *v: current speed
+  *cte: current cross track error
+  *epsi: current psi error
 
 # Actuators
-*steer_angle: range of -1, 1
-*acceleration: range of -0.5, 0.5
+  *steer_angle: range of -1, 1
+  *acceleration: range of -0.5, 0.5
 
 ## N/dt
 
