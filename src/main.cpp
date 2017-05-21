@@ -123,9 +123,11 @@ int main() {
 	  //double epsi = -atan(coeffs[1] + 2 * px * coeffs[2] + 3 * px * px * coeffs[3]);
 	  //state << px, py, psi, v, cte, epsi;
 	  // in car coords, px, py and psi become 0
+	  // consider for latency, px = v * latency, py still = 0
+	  px = v * 0.1; // 100ms latency
 	  double cte = polyeval(coeffs, 0) - 0;
-	  double epsi = -atan(coeffs[1] + 2 * 0 * coeffs[2] + 3 * 0 * 0 * coeffs[3]);
-	  state << 0, 0, 0, v, cte, epsi;
+	  double epsi = -atan(coeffs[1] + 2 * px * coeffs[2] + 3 * px * px * coeffs[3]);
+	  state << px, 0, 0, v, cte, epsi;
 	  auto vars = mpc.Solve(state, coeffs);
 	  int N = (vars.size() - 2) / 2;
 	  steer_value = vars[0];

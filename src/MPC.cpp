@@ -5,10 +5,11 @@
 
 using CppAD::AD;
 
-size_t N = 25;
-double dt = 0.02;
+size_t N = 8;
+double dt = 0.08;
 
 // values of N = 25, dt = 0.01, rev_v of 30 and acc. upper/lower bound of 0.2 makes it around course, but poorly
+// Best solution so far, N = 8, dt = 0.08, ref_v = 50, acc +/- 0.5, latency adjust of px = v*latency
 
 // This value assumes the model presented in the classroom is used.
 //
@@ -25,7 +26,7 @@ const double Lf = 2.67;
 // The reference velocity is set to 40 mph.
 double ref_cte = 0;
 double ref_epsi = 0;
-double ref_v = 40;
+double ref_v = 50;
 
 // The solver takes all the state variables and actuator
 // variables in a singular vector. Thus, we should to establish
@@ -69,7 +70,7 @@ class FG_eval {
 
     // Minimize the value gap between sequential actuations.
     for (int i = 0; i < N - 2; i++) {
-      fg[0] += CppAD::pow(vars[delta_start + i + 1] - vars[delta_start + i], 2);
+      fg[0] += 100 * CppAD::pow(vars[delta_start + i + 1] - vars[delta_start + i], 2);
       fg[0] += CppAD::pow(vars[a_start + i + 1] - vars[a_start + i], 2);
     }
 
@@ -196,8 +197,8 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   // Acceleration/decceleration upper and lower limits.
   // NOTE: Feel free to change this to something else.
   for (int i = a_start; i < n_vars; i++) {
-    vars_lowerbound[i] = -0.2;
-    vars_upperbound[i] = 0.2;
+    vars_lowerbound[i] = -0.5;
+    vars_upperbound[i] = 0.5;
   }
   // Lower and upper limits for the constraints
   // Should be 0 besides initial state.
