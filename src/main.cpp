@@ -131,6 +131,7 @@ int main() {
 	  auto vars = mpc.Solve(state, coeffs);
 	  int N = (vars.size() - 2) / 2;
 	  steer_value = vars[0];
+	  steer_value = steer_value / deg2rad(25);
 	  throttle_value = vars[1];
 	  vector<double> mpc_ptsx;
 	  vector<double> mpc_ptsy;

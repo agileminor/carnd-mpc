@@ -26,7 +26,7 @@ const double Lf = 2.67;
 // The reference velocity is set to 40 mph.
 double ref_cte = 0;
 double ref_epsi = 0;
-double ref_v = 50;
+double ref_v = 40;
 
 // The solver takes all the state variables and actuator
 // variables in a singular vector. Thus, we should to establish
@@ -197,8 +197,8 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   // Acceleration/decceleration upper and lower limits.
   // NOTE: Feel free to change this to something else.
   for (int i = a_start; i < n_vars; i++) {
-    vars_lowerbound[i] = -0.5;
-    vars_upperbound[i] = 0.5;
+    vars_lowerbound[i] = -0.3;
+    vars_upperbound[i] = 0.3;
   }
   // Lower and upper limits for the constraints
   // Should be 0 besides initial state.
